@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Employee Dashboard</h2>
+<p><b>Assigned Complaints:</b> {{ assigned_count }}</p>
+<p><b>Unassigned Complaints:</b> {{ unassigned_count }}</p>
+
+<div class="list-group">
+    <a href="{% url 'assigned_complaints' %}" class="list-group-item list-group-item-action">View Assigned Complaints</a>
+    <a href="{% url 'unassigned_complaints' %}" class="list-group-item list-group-item-action">View Unassigned Complaints</a>
+</div>
+{% endblock %}

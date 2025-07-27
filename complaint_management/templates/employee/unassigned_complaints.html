@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Unassigned Complaints</h2>
+
+    {% if complaints %}
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.id }}</td>
+                        <td>{{ complaint.customer.name }}</td>
+                        <td>{{ complaint.product.name }}</td>
+                        <td>{{ complaint.get_complaint_level_display }}</td>
+                        <td>{{ complaint.description }}</td>
+                        <td>
+                            <form action="{% url 'assign_to_me' complaint.pk %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-primary bg-primary">Assign to Me</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-muted">No unassigned complaints available.</p>
+    {% endif %}
+</div>
+{% endblock %}

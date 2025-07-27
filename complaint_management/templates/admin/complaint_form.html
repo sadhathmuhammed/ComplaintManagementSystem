@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="mb-4 text-center">Create Complaint</h2>
+
+<form method="post" class="container" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="customer" class="form-label">Customer</label>
+        {{ form.customer }}
+    </div>
+
+    <div class="mb-3">
+        <label for="product" class="form-label">Product</label>
+        {{ form.product }}
+    </div>
+
+    <div class="mb-3">
+        <label for="complaint_level" class="form-label">Complaint Level</label>
+        {{ form.complaint_level }}
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        {{ form.description }}
+    </div>
+
+    <div class="mb-3">
+        <label for="assigned_employee" class="form-label">Assigned Employee</label>
+        {{ form.assigned_employee }}
+    </div>
+
+    <!-- Location field -->
+    <div class="mb-3">
+        <label for="location_field" class="form-label">Location</label>
+        <div class="input-group">
+            <input type="text" id="location_field" name="location" class="form-control"
+                   placeholder="Latitude, Longitude"
+                   value="{{ form.location.value|default:'' }}" readonly>
+            <button type="button" id="pickLocationBtn" class="btn btn-primary">
+                📍 Pick Location
+            </button>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Submit</button>
+</form>
+
+<!-- Map popup -->
+<div id="mapPopup"
+     style="display:none; position:fixed; top:10%; left:10%; width:80%; height:70%;
+            background:#fff; border:2px solid #444; z-index:1000;">
+    <button id="closeMapBtn"
+            style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; padding:5px; z-index:1001;">
+        ✖
+    </button>
+    <div id="map" style="height:100%;"></div>
+</div>
+
+{% endblock %}

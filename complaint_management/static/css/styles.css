@@ -1,0 +1,22 @@
+/* Headings text in black */
+h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;  /* Black */
+    background: none !important; /* No background */
+}
+
+/* Normal text in grey */
+body, p, td, th, label, span, a, li {
+    color: #6c757d !important;  /* Grey text */
+    background: none !important; /* Remove background if any */
+}
+
+/* Buttons in blue with white text */
+.btn, button, input[type=submit] {
+    background-color: #007bff !important;  /* Blue */
+    border: none !important;
+    color: #fff !important;  /* White text */
+}
+
+.btn:hover, button:hover, input[type=submit]:hover {
+    background-color: #0056b3 !important;  /* Darker blue on hover */
+}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Assigned Complaints</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Customer</th><th>Status</th><th>Update</th></tr>
+    </thead>
+    <tbody>
+        {% for comp in complaints %}
+        <tr>
+            <td>{{ comp.id }}</td>
+            <td>{{ comp.customer.name }}</td>
+            <td>{{ comp.status }}</td>
+            <td>
+                <a href="{% url 'update_complaint_status' comp.id %}" class="btn btn-sm btn-primary bg-primary">Update</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No assigned complaints.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

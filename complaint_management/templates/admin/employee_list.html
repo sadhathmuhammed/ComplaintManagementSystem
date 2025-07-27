@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card w-75 shadow p-3 mb-5 bg-white rounded">
+        <div class="card-header text-center text-white">
+            <h3>Employee List</h3>
+        </div>
+        <div class="card-body">
+            <div class="text-end mb-3">
+                  <a href="{% url 'employee_add' %}" class="btn btn-primary bg-secondary">➕ Add Employee</a>
+            </div>
+
+            <table class="table table-bordered table-striped text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead >
+                <tbody>
+                    {% for employee in object_list %}
+                    <tr>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.designation }}</td>
+                        <td>{{ employee.phone_number }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>₹{{ employee.salary }}</td>
+                        <td>
+                            <a href="{% url 'employee_edit' employee.id %}" class="btn btn-primary btn-sm bg-secondary">✏️ Edit</a>
+
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No employees found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

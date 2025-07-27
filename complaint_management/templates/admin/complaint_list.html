@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card w-100 shadow p-3 mb-5 bg-white rounded">
+        <div class="card-header text-center text-white">
+            <h3>Complaint List</h3>
+        </div>
+        <div class="card-body">
+            <div class="text-end mb-3">
+                <a href="{% url 'complaint_create' %}" class="btn btn-primary bg-secondary">➕ Register Complaint</a>
+            </div>
+
+            <table class="table table-bordered table-striped text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th>Assigned Employee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in object_list %}
+                    <tr>
+                        <td>{{ complaint.customer.name }}</td>
+                        <td>{{ complaint.product.name }}</td>
+                        <td>{{ complaint.get_complaint_level_display }}</td>
+                        <td>{{ complaint.get_status_display }}</td>
+                        <td>{% if complaint.assigned_employee %}{{ complaint.assigned_employee.name }}{% else %}-{% endif %}</td>
+                        <td>
+                            <a href="{% url 'complaint_edit' complaint.id %}" class="btn btn-primary btn-sm bg-secondary">✏️ Edit</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6">No complaints found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
