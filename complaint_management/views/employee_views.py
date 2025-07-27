@@ -41,7 +41,6 @@ class UnassignedComplaintsView(LoginRequiredMixin, EmployeeRequiredMixin, ListVi
 
 class AssignToMeView(View):
     def post(self, request, pk):
-        # Get the logged-in employee
         employee = get_object_or_404(Employee, user=request.user)
 
         # Find the complaint and assign it

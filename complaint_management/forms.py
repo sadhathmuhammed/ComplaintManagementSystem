@@ -1,7 +1,6 @@
 from django import forms
-from .models import User, Employee, Customer, Product, Complaint
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
+from .models import Employee, Customer, Product, Complaint
+
 
 class EmployeeForm(forms.ModelForm):
     class Meta:

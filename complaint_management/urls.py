@@ -26,6 +26,7 @@ urlpatterns = [
          name='customer_edit'),
 
     # Product
+        # Get the logged-in employee
     path('products/', ProductListView.as_view(), name='product_list'),
     path('products/add/', ProductCreateView.as_view(), name='product_add'),
     path('products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product_edit'),
