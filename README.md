@@ -92,3 +92,5 @@ Make sure you have the following installed on your system:
 7.  **Run the server**
     ```bash
         python manage.py runserver
+    
+8.  **Go to localhost/login in browser**

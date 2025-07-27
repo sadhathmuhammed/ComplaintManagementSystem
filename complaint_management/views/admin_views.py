@@ -31,7 +31,6 @@ class EmployeeCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
         password = form.cleaned_data.pop('password')
         email = form.cleaned_data['email']
 
-        # Create user with username & password from admin
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -91,6 +90,18 @@ class ComplaintListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
     template_name = "admin/complaint_list.html"
     context_object_name = "complaints"
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        status_filter = self.request.GET.get('status')
+        if status_filter:
+            queryset = queryset.filter(status=status_filter)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['status_choices'] = Complaint.ComplaintStatus.choices
+        context['selected_status'] = self.request.GET.get('status', '')
+        return context
 
 class ComplaintCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
     model = Complaint

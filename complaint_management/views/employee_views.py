@@ -21,13 +21,24 @@ class EmployeeDashboardView(LoginRequiredMixin, EmployeeRequiredMixin, TemplateV
         return context
 
 
-class AssignedComplaintsView(LoginRequiredMixin, EmployeeRequiredMixin, ListView):
+class AssignedComplaintsView(EmployeeRequiredMixin, ListView):
     model = Complaint
-    template_name = "employee/assigned_complaints.html"
-    context_object_name = "complaints"
+    template_name = 'employee/assigned_complaints.html'
+    context_object_name = 'complaints'
 
     def get_queryset(self):
-        return Complaint.objects.filter(assigned_employee=self.request.user.employee_profile)
+        queryset = Complaint.objects.filter(assigned_employee=self.request.user.employee_profile)
+        status_filter = self.request.GET.get('status')
+        if status_filter:
+            queryset = queryset.filter(status=status_filter)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['status_choices'] = Complaint.ComplaintStatus.choices
+        context['selected_status'] = self.request.GET.get('status', '')
+        return context
+
 
 
 class UnassignedComplaintsView(LoginRequiredMixin, EmployeeRequiredMixin, ListView):
